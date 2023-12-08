@@ -1,0 +1,305 @@
+Entities:
+
+Autor:
+	 -id
+	 -meno
+	 -priezvisko
+	 -kniha
+ 
+ Kniha
+	-id
+	-nazov
+	-obsah
+	-vydavatelstvo
+	-rok
+	-isbn
+	-kategoria
+	
+Kategoria
+	-id
+	-nazov
+ 
+ Endpointy:
+ 
+ GET/authors
+ HTTP 200
+	[{
+		id: 1,
+		meno: "Martin",
+		priezvisko: "Kukučín",
+		kniha: {
+			id: 1,
+			nazov: "Dom v strání",
+			vydavatelstvo: "TATRAN Bratislava",
+			rok: 1970,
+			isbn: "61-026-79",
+			kategoria: {
+				id:1,
+				nazov: "román"
+			}
+		}
+	},
+	{id: 2,
+		meno: "Agatha",
+		priezvisko: "Christie",
+		kniha: {
+			id: 2,
+			nazov: "Deset malých černoušků",
+			vydavatelstvo: "Knižní klub",
+			rok: 2017,
+			isbn: "978-80-242-5541-5",
+			kategoria: {
+				id: 2,
+				nazov: "krimi"
+			}
+		}
+	},
+	{
+	id: 3,
+		meno: "Karel Hynek",
+		priezvisko: "Mácha",
+		kniha: {
+			id: 3,
+			nazov: "Máj",
+			vydavatelstvo: "BB art",
+			rok: 2010,
+			isbn: "978-80-7381-843-2",
+			kategoria: {
+				id:3,
+				nazov: "poezia"
+			}
+		}
+	},
+		{id: 4,
+		meno: "Robin",
+		priezvisko: "Cook",
+		kniha: {
+			id: 4,
+			nazov: "Kóma",
+			vydavatelstvo: "Knižní klub",
+			rok: 2008,
+			isbn: "978-80-242-2138-0",
+			kategoria: {
+				id: 4,
+				nazov: "thriller"
+			}
+		}
+	}
+	]
+	
+	GET/books
+	HTTP 200:
+	[
+		{	
+		id: 1,
+		nazov: "Dom v strání",
+		vydavatelstvo: "TATRAN Bratislava",
+		rok: 1970,
+		isbn: "61-026-79",
+		kategoria: {
+			id:1,
+			nazov: "román"
+		}
+	},
+		{
+		id: 2,
+		nazov: "Deset malých černoušků",
+		vydavatelstvo: "Knižní klub",
+		rok: 2017,
+		isbn: "978-80-242-5541-5",
+		kategoria: {
+			id: 2,
+			nazov: "krimi"
+		}
+
+	},
+	{
+		id: 3,
+		nazov: "Dom v strání",
+		vydavatelstvo: "BB art",
+		rok: 2010,
+		isbn: "978-80-7381-843-2",
+		kategoria: {
+			id: 3,
+			nazov: "poezia"
+		}
+
+	},
+	{
+		id: 4,
+		nazov: "Kóma",
+		vydavatelstvo: "Knižní klub",
+		rok: 2008,
+		isbn: "978-80-242-2138-0",
+		kategoria: {
+			id: 4,
+			nazov: "thriller"
+		}
+	}
+	]
+	
+GET/categories
+HTTP 200
+[
+	{	
+		id:1,
+		nazov: "román"
+
+	},
+	{
+		id: 2,
+		nazov: "krimi"
+	},
+	{
+		id:3,
+		nazov: "poezia"
+	},
+	{
+		id: 4,
+		nazov: "thriller"
+	}
+]
+	 
+GET /authors/3
+HTTP 200
+	{
+	id: 3,
+		meno: "Karel Hynek",
+		priezvisko: "Mácha",
+		kniha: {
+			id: 3,
+			nazov: "Máj",
+			vydavatelstvo: "BB art",
+			rok: 2010,
+			isbn: "978-80-7381-843-2",
+			kategoria: {
+				id:3,
+				nazov: "poezia"
+			}
+		}
+	}
+GET /authors/11
+HTTP 404
+{
+	error: "AUTHOR_NOT_FOUND",
+	message: "Autor s id: 11 nenajdený"
+}	
+	
+GET /books/4
+HTTP 200
+	{
+		id: 4,
+		nazov: "Kóma",
+		vydavatelstvo: "Knižní klub",
+		rok: 2008,
+		isbn: "978-80-242-2138-0",
+		kategoria: {
+			id: 4,
+			nazov: "thriller"
+		}
+	}
+GET /books/13	
+HTTP 404
+{
+	error: "BOOK_NOT_FOUND",
+	message: "Kniha s id: 13 nenajdená"
+}
+	
+GET /categories/3
+HTTP 200	
+	{
+		id:3,
+		nazov: "poezia"
+	},
+GET /categories/17	
+HTTP 404
+{
+	error: "CATEGORY_NOT_FOUND",
+	message: "Kategória s id: 17 nenajdená"
+}	
+
+POST /authors
+	{
+		meno: "Christopher",
+		priezvisko: "Davis",
+	}
+HTTP 201
+	{
+		id: 5,
+		meno: "Christopher",
+		priezvisko: "Davis",
+	}
+	
+POST /books
+	{
+		nazov: "Philadelphia",
+		vydavatelstvo: "TIMY, spol. s r. o.",
+		rok: 1994,
+		isbn: "80-967021-6-5",
+	}
+HTTP 201
+	{
+		id:5
+		nazov: "Philadelphia",
+		vydavatelstvo: "TIMY, spol. s r. o.",
+		rok: 1994,
+		isbn: "80-967021-6-5",
+	}
+
+POST /categories
+	{	
+		nazov: "drama"
+	},	
+HTTP 200	
+	{
+		id:5,
+		nazov: "drama"
+	},
+	
+PUT /books /5
+	{
+		nazov: "Philadelphia",
+		vydavatelstvo: "TIMY, s.r.o",
+		rok: 1994,
+		isbn: "80-967021-6-5",
+	}
+HTTP 200
+	{
+		id:5
+		nazov: "Philadelphia",
+		vydavatelstvo: "TIMY, s.r.o",
+		rok: 1994,
+		isbn: "80-967021-6-5",
+	}
+
+PUT /categories /5
+Content-Type: application/json	
+	{	
+		nazov: "dráma"
+	},	
+HTTP 200	
+	{
+		id:5,
+		nazov: "dráma"
+	},
+	
+POST /categories
+	{	
+		nazov: "drama"
+	},	
+HTTP 200	
+	{
+		id:5,
+		nazov: "drama"
+	},
+	
+DELETE /authors /5
+HTTP 204
+	
+DELETE /books /5
+HTTP 204
+
+
+DELETE /categories /5	
+HTTP 204
+
